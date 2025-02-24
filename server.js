@@ -1,8 +1,16 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors'); // Import CORS
 
 const app = express();
+
+app.use(cors({ 
+    origin: '*', // Allow all origins
+    methods: 'GET, POST', 
+    allowedHeaders: 'Content-Type, Authorization'
+}));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve index.html
 
@@ -32,7 +40,7 @@ app.post('/api/upload-pdf', upload.single('pdf'), (req, res) => {
     res.send(req.file.buffer); // Send PDF back to external site
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use dynamic port for deployment
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
 });
