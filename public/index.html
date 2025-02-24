@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body{
+            background-color: #f4f4f5;
+        }
+        .cover{
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 0;
+        }
+        .resume-content{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px 30px;
+            row-gap: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-divider{
+            width: 100%;
+            /* height: 2px; */
+            border-top: 1px solid #000000;
+            background-color: #000;
+            margin: 5px 0 -10px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item1{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            row-gap: 5px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item1-cap{
+            font-size: 25px;
+            font-weight: 600;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item1-scap{
+            font-size: 19px;
+            font-weight: 500;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item1-sub{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            column-gap: 5px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item1-sub span{
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item2{
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item2-row{
+            width: 100%;
+            height: auto;
+            display: flex;
+            column-gap: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-block-div{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            row-gap: 18px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item4-divider{
+            width: 100%;
+            /* height: 2px; */
+            border-top: 1px solid #000000;
+            background-color: #000;
+            margin: 5px 0 5px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item4{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            row-gap: 8px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap1{
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-emp-dv{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            row-gap: 5px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-emp-dv-row{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            column-gap: 5px;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: 'red';
+        }
+        .resume-item3-rw{
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap21{
+            font-size: 15px;
+            font-weight: 600;
+            color: #0000EE;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap21S{
+            font-size: 14px;
+            font-weight: 600;
+            color: #0000EE;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap22{
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap11{
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap2{
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 19px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap2S{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap31{
+            font-size: 15px;
+            font-weight: 600;
+            color: #000000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item2-cap{
+            font-size: 18px;
+            font-weight: 400;
+            color: #0000EE;
+            padding-bottom: 1px;
+            text-decoration: none;
+            border-bottom: 1.4px solid #0000EE;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .resume-item3-cap41{
+            font-size: 15px;
+            font-weight: 400;
+            color: #0000EE;
+            padding-bottom: 1px;
+            text-decoration: none;
+            border-bottom: 1.4px solid #0000EE;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf_holder"></div>
+    <script>
+        const { jsPDF } = window.jspdf;
+        async function generatePDF() {
+            const doc = new jsPDF({
+                unit: 'px',
+                format: [774, 1122],
+                putOnlyUsedFonts: true,
+                hotfixes: ['px_scaling']
+            });
+
+            const element = document.getElementById("resume-holder");
+            
+            const pdfView = document.getElementById("pdf_holder");
+
+            const clonedElement = element.cloneNode(true);
+            const offScreen = element.cloneNode(true);
+
+            document.body.appendChild(offScreen);
+            offScreen.style.position = 'absolute';
+            offScreen.style.left = '-9999px';
+            offScreen.style.top = '-9999px';
+
+            var _links = clonedElement.querySelectorAll('a');
+            _links.forEach(_link => {
+                _link.style.opacity = 0;
+                _link.style.color = "#FFF";
+                _link.style.borderBottom = "1.4px solid #FFF";
+            })
+
+            const pages = offScreen.querySelectorAll('.resume-page');
+
+            await doc.html(clonedElement, {
+                callback: async function (doc) {
+                    const screenHeight = window.screen.height;
+                    const links = offScreen.querySelectorAll('a');
+                    const pdfPageWidth = doc.internal.pageSize.getWidth();
+                    const pdfPageHeight = doc.internal.pageSize.getHeight();
+                    const scaleFactor = doc.internal.scaleFactor;
+
+                    links.forEach(link => {
+                        const href = link.href;
+                        const href_size = link.getAttribute("pdf_size");
+                        const linkRect = link.getBoundingClientRect();
+                        let pageNumber = null;
+                        let x = 0;
+                        let y = 0;
+
+                        pages.forEach((page, index) => {
+                            const pageRect = page.getBoundingClientRect();
+
+                            if (page.contains(link)) {
+                                pageNumber = index + 1;
+                                
+                                if(parseInt(href_size) == 13){
+                                    x = (linkRect.left - pageRect.left);
+                                    y = ((linkRect.top + 42) - pageRect.top);
+                                    
+                                    if(screenHeight < 1050){
+                                        y += 30;
+                                    }
+                                }else{
+                                    x = ((linkRect.left + 11) - pageRect.left);
+                                    y = ((linkRect.top + 15) - pageRect.top);
+
+                                    if(screenHeight < 1050){
+                                        y += 30;
+                                    }
+                                }
+                            }
+                        });
+
+                        if (pageNumber === null) return;
+
+                        // console.log(`Page: ${pageNumber}, X: ${x}, Y: ${y}`);
+
+                        doc.setPage(pageNumber);
+                        doc.setFont('times', 'normal');
+                        doc.setFontSize(parseInt(href_size));
+                        doc.setTextColor(0, 0, 238);
+
+                        const text = link.innerText.trim();
+                        const textWidth = doc.getTextWidth(text);
+
+                        doc.textWithLink(text, x, y, { url: href });
+                        doc.setDrawColor(0, 0, 238);
+                        doc.setLineWidth(1);
+                        doc.line(x, y + 5, x + textWidth, y + 5);
+                    });
+
+                    const pageCount = doc.internal.getNumberOfPages();
+                    for (let i = 1; i <= pageCount; i++) {
+                        doc.setPage(i);
+                        doc.setFont('times', 'normal');
+                        doc.setFontSize(8);
+                        doc.setTextColor(0, 0, 0);
+                        doc.text(`Page ${i} of ${pageCount}`, 10, doc.internal.pageSize.height - 10);
+                    }
+
+                    const pdfBlob = doc.output("blob");
+
+                    const formData = new FormData();
+                    formData.append("pdf", pdfBlob, "resume.pdf");
+
+                    const response = await fetch("/api/upload-pdf", {
+                        method: "POST",
+                        body: formData
+                    });
+                    
+                    //doc.save("output.pdf");
+                    document.body.removeChild(offScreen);
+                },
+                x: 0,
+                y: 0,
+                width: 774,
+                windowWidth: 800,
+            });
+        }
+    </script>
+    <script>
+        // Fetch JSON data from the server
+        fetch('/api/getData')
+            .then(response => response.json())
+            .then(data => {
+                const resume_data = data;
+                const first_name = resume_data.first_name;
+                const last_name = resume_data.last_name;
+                const city = resume_data.city;
+                const links = resume_data.links;
+                const state = resume_data.state;
+                const title = resume_data.title;
+                const skills = resume_data.skills;
+                const country = resume_data.country;
+                const postal_code = resume_data.postal_code;
+                const courses = resume_data.courses;
+                const education = resume_data.education;
+                const phone_number = resume_data.phone_number;
+                const email_address = resume_data.email_address;
+                const work_portfolio = resume_data.work_portfolio;
+                const desired_job_title = resume_data.desired_job_title;
+                const employment_history = resume_data.employment_history;
+                const professional_summary = resume_data.professional_summary;
+                const frameContent = `
+        <div class="cover">
+            <div class="resume-content" id="content">
+                <div class="resume-item1">
+                    <span class="resume-item1-cap" style="font-weight:900;">${first_name} ${last_name}</span>
+                    <span class="resume-item1-scap" style="font-weight:900;">${desired_job_title}</span>
+
+                    <div class="resume-item1-sub">
+                        ${state.length > 0 ? `<span>${state},</span>` : ``}
+                        ${city.length > 0 ? `<span>${city},</span>` : ``}
+                        ${country.length > 0 ? `<span>${country}</span>` : ``}
+                        ${email_address.length > 0 && postal_code.length == 0 && phone_number.length == 0 && country.length > 0 ? `<span>•</span>`: ``}
+                        ${postal_code.length > 0 && country.length > 0 ? `<span>•</span>` : ''}
+                        ${country.length > 0 && phone_number.length > 0 &&  postal_code.length == 0 ? `<span>•</span>` : ''}
+                        ${postal_code.length > 0 ? `<span>${postal_code}</span>` : ``}
+                        ${phone_number.length > 0 && postal_code.length > 0 ? `<span>•</span>` : ''}
+                        ${phone_number.length > 0 ? `<span>${phone_number}</span>` : ``}
+                        ${email_address.length > 0 && postal_code.length > 0 && phone_number.length == 0 ? `<span>•</span>` : ''}
+                        ${email_address.length > 0 && phone_number.length > 0 ? `<span>•</span>` : ''}
+                        ${email_address.length > 0 ? `<span>${email_address}</span>` : ``}
+                    </div>
+                </div>
+                ${
+                    work_portfolio.length > 0 ? 
+                    `
+                        <div class="resume-item2-row">
+                            ${work_portfolio.map((item, index) => (
+                                `<a href="${item.url}" class="resume-item2-cap" pdf_size="13">${item.title}${work_portfolio.length > index +1 ? `,` : ``}</a>`
+                            )).join('')}
+                        </div>
+                    `
+                    : 
+                    ``
+                }
+                <div class="resume-item3">
+                    <div class="resume-block-div">
+                        <span class="resume-item3-cap1" style="font-weight:900;">Professional Summary</span>
+                        <div class="resume-divider"></div>
+                    </div>
+                    <span class="resume-item3-cap2">${professional_summary}</span>
+                </div>
+                ${
+                    employment_history.length >0 ? 
+                    `
+                        <div class="resume-item3" id="parent-block">
+                            <div class="resume-block-div" id="block">
+                                <span class="resume-item3-cap1" style="font-weight:900;">Employment History</span>
+                                <div class="resume-divider"></div>
+                            </div>
+                            ${employment_history.map((item, index) => (
+                                `<div class="resume-emp-dv" id="block">
+                                    <div class="resume-item3-rw">
+                                        <span class="resume-item3-cap21" style="font-weight:900;">${item.company}</span>
+                                        ${
+                                            (item.start_date.length >0 || item.end_date.length >0) ? 
+                                            `
+                                                <span class="resume-item3-cap22" style="font-weight:900;">${item.start_date} ${item.end_date.length>0 ? '-':''} ${item.end_date}</span>
+                                            `
+                                            : 
+                                            ``
+                                        }
+                                    </div>
+                                    <span class="resume-item3-cap11" style="font-weight:900;" id="blocks-block">${item.job_title}, ${item.location}</span>
+                                    ${
+                                    item.description.length > 0 ? 
+                                    item.description.split('•').map(part => (part.trim().length > 0) ? `<span class="resume-item3-cap2" id="blocks-block"><b>•</b>${part}</span>`: ``).join('')
+                                    : ``
+                                    }
+                                </div>`
+                            )).join('')}
+                        </div>
+                    ` 
+                    : 
+                    ``
+                }
+                ${
+                    education.length >0 ?
+                    `
+                        <div class="resume-item3" id="parent-block">
+                            <div class="resume-block-div" id="block">
+                                <span class="resume-item3-cap1" style="font-weight:900;">Education</span>
+                                <div class="resume-divider"></div>
+                            </div>
+                            ${education.map((item, index) => (
+                                `<div class="resume-emp-dv" id="block">
+                                    <div class="resume-item3-rw">
+                                        <span class="resume-item3-cap21" style="font-weight:900;">${item.institution}</span>
+                                        ${
+                                            (item.start_date.length >0 || item.end_date.length >0) ? 
+                                            `
+                                                <span class="resume-item3-cap22" style="font-weight:900;">${item.start_date} ${item.end_date.length>0 ? '-':''} ${item.end_date}</span>
+                                            `
+                                            : 
+                                            ``
+                                        }
+                                    </div>
+                                    <span class="resume-item3-cap11" style="font-weight:900;">${item.degree}</span>
+                                    <span class="resume-item3-cap2">${item.description}</span>
+                                </div>`
+                            )).join('')}
+                        </div>
+                    ` 
+                    :
+                    ``
+                }
+                ${
+                    courses.length >0 ? 
+                    `
+                        <div class="resume-item4" id="parent-block">
+                            <div class="resume-block-div" id="block">
+                                <span class="resume-item3-cap1" style="font-weight:900;">Courses</span>
+                                <div class="resume-item4-divider"></div>
+                            </div>
+                            ${courses.map((item, index) => (
+                                `<div class="resume-emp-dv" id="block">
+                                    <div class="resume-item3-rw">
+                                        <span class="resume-item3-cap21S" style="font-weight:900;">${item.institution}</span>
+                                        ${
+                                            (item.start_date.length >0 || item.end_date.length >0) ? 
+                                            `
+                                                <span class="resume-item3-cap22" style="font-weight:900;">${item.start_date} ${item.end_date.length>0 ? '-':''} ${item.end_date}</span>
+                                            `
+                                            : 
+                                            ``
+                                        }
+                                    </div>
+                                    <span class="resume-item3-cap2S">${item.course}</span>
+                                </div>`
+                            )).join('')}
+                        </div>
+                    ` 
+                    : 
+                    ``
+                }
+                ${
+                    skills.length >0 ? 
+                    `
+                        <div class="resume-item3" id="parent-block">
+                            <div class="resume-block-div" id="block">
+                                <span class="resume-item3-cap1" style="font-weight:900;">Skills</span>
+                                <div class="resume-divider"></div>
+                            </div>
+                            <div class="resume-emp-dv" id="block">
+                                <span class="resume-item3-cap2S">${skills.map((skill) => skill.skill).join(', ')} </span>
+                            </div>
+                        </div>
+                    ` 
+                    : 
+                    ``
+                }
+                ${
+                    links.length>0 ? 
+                    `
+                        <div class="resume-item3" id="parent-block">
+                            <div class="resume-block-div" id="block">
+                                <span class="resume-item3-cap1" style="font-weight:900;">Links</span>
+                                <div class="resume-divider"></div>
+                            </div>
+                            <div class="resume-emp-dv-row" id="block">
+                                ${links.map((item, index) => (
+                                    `<a href="${item.url}" class="resume-item3-cap41" pdf_size="11">${item.link_name}${links.length > index +1 ? `,` : ``}</a>`
+                                )).join('')}
+                            </div>
+
+
+                        </div>
+                    ` 
+                    : 
+                    ``
+                }
+
+            </div>
+        </div>
+`;
+
+                const pdf_holder = document.querySelectorAll(".pdf_holder")[0];
+
+                const container = document.createElement('div');
+                container.id = "resume-holder"; 
+                container.style.display = "flex";
+                container.style.flexDirection = "column";
+                container.style.justifyContent = "center";
+                container.style.alignItems = "center";
+
+                pdf_holder.innerHTML = ``;
+                pdf_holder.appendChild(container);
+
+                const parser = new DOMParser();
+                const parsedContent = parser.parseFromString(frameContent, 'text/html');
+                const contentBlocks = parsedContent.querySelector('.resume-content').children;
+
+                const PAGE_WIDTH = '774px';
+                const PAGE_HEIGHT = '1122px';
+
+                function createPage() {
+                    const page = document.createElement('div');
+                    page.style.width = PAGE_WIDTH;
+                    page.style.height = PAGE_HEIGHT;
+                    page.style.margin = '30px 0 0 0';
+                    page.style.boxSizing = 'border-box';
+                    page.style.overflow = 'hidden';
+                    page.style.border = 'none';
+                    page.style.padding = '30px 50px';
+                    page.style.display = 'flex';
+                    page.style.flexDirection = 'column';
+                    page.style.rowGap = '20px';
+                    page.style.backgroundColor = '#fff';
+                    page.classList.add('resume-page');
+                    container.appendChild(page);
+                    return page;
+                }
+
+                let currentPage = createPage();
+
+
+                // Helper to calculate if content fits on the page
+                function canFit(block) {
+                currentPage.appendChild(block.cloneNode(true));
+                const fits = currentPage.scrollHeight <= currentPage.clientHeight;
+                currentPage.removeChild(currentPage.lastChild);
+                return fits;
+                }
+
+                function contentHeight(){
+                    let contentHeight = currentPage.scrollHeight;
+                    return contentHeight;
+                }
+
+                function currentHeights(){
+                    var heights = 0;
+                    var contents = currentPage.children;
+                    for(var i = 0; i < contents.length; i++){
+                        heights += contents[i].offsetHeight;
+                    }
+                    return heights;
+                }
+
+                function manageChildren(parentDiv, pageHeight) {
+                    currentPage.appendChild(parentDiv);
+                    let removedChildren = [];
+                    let currentHeight = 0;
+                    currentHeight = contentHeight();
+                    while (currentHeight > pageHeight) {
+                        let lastChild = parentDiv.lastElementChild;
+                        if (!lastChild) {
+                            break;
+                        }
+                        parentDiv.removeChild(lastChild);
+                        currentPage.removeChild(currentPage.lastChild);
+                        currentPage.appendChild(parentDiv);
+                        removedChildren.unshift(lastChild);
+                        currentHeight = contentHeight();
+                    }
+                    return removedChildren;
+                }
+
+                function manageBlocksBlock(parentDiv,pageHeight){
+                    currentPage.appendChild(parentDiv);
+                    let removedChildren = [];
+                    let currentHeight = 0;
+                    let currentArr = 0;
+                    currentHeight = contentHeight();
+                    while (currentHeight > pageHeight) {
+                        let lastChild = parentDiv.lastElementChild;
+                        if (!lastChild) {
+                            break;
+                        }
+                        parentDiv.removeChild(lastChild);
+                        currentPage.removeChild(currentPage.lastChild);
+                        currentPage.appendChild(parentDiv);
+                        removedChildren.unshift(lastChild);
+                        currentHeight = contentHeight();
+                    }
+                    manage(parentDiv,pageHeight,removedChildren);
+                }
+
+                function manage(parentDiv,pageHeight,removedChildren){
+                    let removedBlocks = removedChildren;
+                    let currentHeight = 0;
+                    let currentArr = 0;
+                    let currentBlock = removedChildren[currentArr];
+                    let currentBlockChildren = currentBlock.children.length;
+                    let currentBlockOn = 0;
+                    let removedLasts = [];
+
+                    parentDiv.appendChild(currentBlock);
+                    currentHeight = contentHeight();
+
+                    let contentHeights = 0;
+                    contentHeights = currentHeights();
+
+                    while(currentHeight > pageHeight){
+                        let lastChild = currentBlock.lastElementChild; 
+                        if (!lastChild) {
+                            break;
+                        }
+                        if(currentBlockOn == currentBlockChildren){
+                            if(currentArr < removedBlocks.length){
+                                currentArr++;
+                            }
+                        }
+                        currentBlockOn++;
+                        currentBlock.removeChild(lastChild);
+                        removedLasts.unshift(lastChild);
+                        parentDiv.removeChild(parentDiv.lastChild);
+                        parentDiv.appendChild(currentBlock);
+                        currentHeight = contentHeight();
+
+                        contentHeights = currentHeights();
+                    }
+
+                    let wrapperDiv = document.createElement(removedBlocks[currentArr].tagName);
+                    Array.from(removedBlocks[currentArr].attributes).forEach(attr => {
+                        wrapperDiv.setAttribute(attr.name, attr.value);
+                    });
+                    removedLasts.forEach(child => {
+                        wrapperDiv.appendChild(child);
+                    });
+                    removedBlocks[currentArr] = wrapperDiv;
+                    wrapAndAppendRemovedBlocksBlock(parentDiv,removedBlocks);
+                }
+
+                function wrapAndAppendRemovedBlocksBlock(parentDiv,addingBlocks){
+                    let wrapperDiv = document.createElement(parentDiv.tagName);
+                    Array.from(parentDiv.attributes).forEach(attr => {
+                        wrapperDiv.setAttribute(attr.name, attr.value);
+                    });
+                    addingBlocks.forEach(child => {
+                        wrapperDiv.appendChild(child);
+                    });
+                    currentPage = createPage();
+                    currentPage.appendChild(wrapperDiv);
+                }
+
+                function wrapAndAppendRemovedChildren(parentDiv, removedChildren) {
+                    let wrapperDiv = document.createElement(parentDiv.tagName);
+                    Array.from(parentDiv.attributes).forEach(attr => {
+                        wrapperDiv.setAttribute(attr.name, attr.value);
+                    });
+                    removedChildren.forEach(child => {
+                        wrapperDiv.appendChild(child);
+                    });
+                    currentPage = createPage();
+                    currentPage.appendChild(wrapperDiv);
+                    return wrapperDiv;
+                }
+
+
+                function contentFit(block){
+                    const scrollHeight = currentPage.scrollHeight;
+                    const pageHeight = currentPage.clientHeight;
+                    const offsetHeight = currentPage.offsetHeight;
+                    const blocksblock = (block.querySelectorAll('#blocks-block').length > 0);
+
+                    if(blocksblock){
+                        var lostChilren = manageBlocksBlock(block,offsetHeight);
+                    }else{
+                        var lostChildren = manageChildren(block, offsetHeight);
+                        var wrapChildren = wrapAndAppendRemovedChildren(block,lostChildren);
+                    }
+
+                }
+
+                Array.from(contentBlocks).forEach((block) => {
+                const blockClone = block.cloneNode(true);
+                    if (!canFit(blockClone)){
+                        if(blockClone.id === "parent-block"){
+                            contentFit(blockClone);
+                        }
+                    }else{
+                        currentPage.appendChild(blockClone);
+                    }
+                });
+
+                setTimeout(generatePDF(), 2000);
+
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
+</body>
+</html>
