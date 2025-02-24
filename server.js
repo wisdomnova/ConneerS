@@ -6,16 +6,16 @@ const cors = require("cors");
 const app = express();
 const upload = multer();
 
+app.use(cors({
+    origin: 'https://app.conneer.com/',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
 
 app.use(express.json());
 app.use(express.static("public")); // Serve static files (index.html)
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({
-    origin: 'https://editor.weweb.io',
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
 
 // Serve index.html
 app.get("/", (req, res) => {
