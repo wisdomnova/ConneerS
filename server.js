@@ -7,7 +7,7 @@ const app = express();
 const upload = multer();
 
 app.use(cors({
-    origin: 'https://app.conneer.com/',
+    origin: 'https://editor.weweb.io',
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization'
 }));
