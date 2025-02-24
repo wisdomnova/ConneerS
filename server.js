@@ -6,11 +6,11 @@ const cors = require("cors");
 const app = express();
 const upload = multer();
 
-app.use(cors({
-    origin: 'https://editor.weweb.io',
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+})
 
 app.use(express.json());
 app.use(express.static("public")); // Serve static files (index.html)
